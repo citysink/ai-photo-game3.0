@@ -1,3 +1,27 @@
 {
-  "questions": []
+  "questions": [
+    {
+      "date": "2026-06-21",
+      "title": "哪两张是 AI 生成的？",
+      "images": [
+        {
+          "src": "media/2026-06-21/1781981796690-01.png",
+          "isAi": true
+        },
+        {
+          "src": "media/2026-06-21/1781981796690-02.jpg",
+          "isAi": false
+        },
+        {
+          "src": "media/2026-06-21/1781981796690-03.png",
+          "isAi": true
+        },
+        {
+          "src": "media/2026-06-21/1781981796690-04.png",
+          "isAi": false
+        }
+      ],
+      "updatedAt": "2026-06-20T18:56:55.575Z"
+    }
+  ]
 }
