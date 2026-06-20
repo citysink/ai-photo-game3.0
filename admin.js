@@ -5,6 +5,8 @@ const repoInput = document.querySelector("#repoInput");
 const branchInput = document.querySelector("#branchInput");
 const dateInput = document.querySelector("#dateInput");
 const titleInput = document.querySelector("#titleInput");
+const descriptionInput = document.querySelector("#descriptionInput");
+const modeInputs = [...document.querySelectorAll('input[name="questionMode"]')];
 const fileInputs = [...document.querySelectorAll(".file-input")];
 const aiChecks = [...document.querySelectorAll(".ai-check")];
 const uploadCards = [...document.querySelectorAll(".upload-card")];
@@ -22,17 +24,17 @@ const decoder = new TextDecoder();
 const selectedFiles = Array(fileInputs.length).fill(null);
 const previewUrls = Array(fileInputs.length).fill("");
 
+const MODE_LABELS = {
+  single: "单选",
+  multiple: "多选",
+  indefinite: "不定项"
+};
+
 function getLocalDateKey(date = new Date()) {
   const year = date.getFullYear();
   const month = String(date.getMonth() + 1).padStart(2, "0");
   const day = String(date.getDate()).padStart(2, "0");
   return `${year}-${month}-${day}`;
-}
-
-function setAdminStatus(message, type = "") {
-  adminStatus.textContent = message;
-  adminStatus.className = `result ${type}`.trim();
-  appendPublishLog(message, type);
 }
 
 function appendPublishLog(message, type = "") {
@@ -52,6 +54,12 @@ function appendPublishLog(message, type = "") {
   item.append(stamp, text);
   publishLog.appendChild(item);
   publishLog.scrollTop = publishLog.scrollHeight;
+}
+
+function setAdminStatus(message, type = "") {
+  adminStatus.textContent = message;
+  adminStatus.className = `result ${type}`.trim();
+  appendPublishLog(message, type);
 }
 
 function initCursorSpotlight() {
@@ -79,6 +87,10 @@ function inferRepoFromLocation() {
   }
 
   return { owner: "", repo: "" };
+}
+
+function getSelectedMode() {
+  return modeInputs.find((input) => input.checked)?.value || "multiple";
 }
 
 function loadSavedSettings() {
@@ -253,8 +265,14 @@ function normalizeDateValue(value) {
 
 function updateAiCount() {
   const aiCount = aiChecks.filter((input) => input.checked).length;
-  aiCountText.textContent = `AI 已标记 ${aiCount} / 2`;
-  aiCountText.classList.toggle("is-complete", aiCount === 2);
+  const mode = getSelectedMode();
+  const suffix = mode === "single" ? "必须 1" : mode === "multiple" ? "至少 2" : "1-4";
+  aiCountText.textContent = `${MODE_LABELS[mode]}：AI 已标记 ${aiCount}（${suffix}）`;
+  aiCountText.classList.toggle("is-complete",
+    (mode === "single" && aiCount === 1) ||
+    (mode === "multiple" && aiCount >= 2) ||
+    (mode === "indefinite" && aiCount >= 1)
+  );
 }
 
 function markCardError(index, message) {
@@ -312,6 +330,20 @@ function clearImageFile(index) {
   setAdminStatus(`已移除 ${getSampleName(index)}。`);
 }
 
+function validateModeAiCount(mode, aiCount) {
+  if (mode === "single" && aiCount !== 1) {
+    throw new Error("单选模式下必须且只能设置 1 张 AI 图片。");
+  }
+
+  if (mode === "multiple" && aiCount < 2) {
+    throw new Error("多选模式下至少需要设置 2 张 AI 图片。");
+  }
+
+  if (mode === "indefinite" && aiCount < 1) {
+    throw new Error("不定项模式下至少需要设置 1 张 AI 图片。");
+  }
+}
+
 function validateForm() {
   const token = tokenInput.value.trim();
   const owner = ownerInput.value.trim();
@@ -319,8 +351,10 @@ function validateForm() {
   const branch = branchInput.value.trim();
   const date = normalizeDateValue(dateInput.value);
   const title = titleInput.value.trim();
+  const description = descriptionInput.value.trim() || "从四张图片中找出 AI 生成的照片。";
+  const mode = getSelectedMode();
   const missingImages = selectedFiles
-    .map((file, index) => file ? "" : `IMAGE ${String(index + 1).padStart(2, "0")}`)
+    .map((file, index) => file ? "" : getSampleName(index))
     .filter(Boolean);
   const aiCount = aiChecks.filter((input) => input.checked).length;
 
@@ -330,9 +364,9 @@ function validateForm() {
   if (!branch) throw new Error("请填写 Branch。");
   if (!title) throw new Error("请填写题目标题。");
   if (missingImages.length > 0) throw new Error(`请补齐四张图片：${missingImages.join("、")}。`);
-  if (aiCount !== 2) throw new Error(`请标记正好 2 张 AI 图片，当前标记了 ${aiCount} 张。`);
+  validateModeAiCount(mode, aiCount);
 
-  return { token, owner, repo, branch, date, title };
+  return { token, owner, repo, branch, date, title, description, mode };
 }
 
 fileInputs.forEach((input, index) => {
@@ -371,6 +405,10 @@ aiChecks.forEach((input) => {
   input.addEventListener("change", updateAiCount);
 });
 
+modeInputs.forEach((input) => {
+  input.addEventListener("change", updateAiCount);
+});
+
 form.addEventListener("submit", async (event) => {
   event.preventDefault();
 
@@ -381,7 +419,7 @@ form.addEventListener("submit", async (event) => {
     publishButton.textContent = "发布中...";
 
     setAdminStatus("正在校验配置...", "loading");
-    const { token, owner, repo, branch, date, title } = validateForm();
+    const { token, owner, repo, branch, date, title, description, mode } = validateForm();
     dateInput.value = date;
     saveSettings();
 
@@ -407,23 +445,31 @@ form.addEventListener("submit", async (event) => {
 
     setAdminStatus("正在更新题目数据...", "loading");
     const nextQuestion = {
+      id: date,
       date,
       title,
-      images: uploadedPaths.map((src, index) => ({
-        src,
-        isAi: aiChecks[index].checked
-      })),
+      description,
+      mode,
+      images: uploadedPaths.map((src, index) => {
+        const isAi = aiChecks[index].checked;
+        return {
+          id: `img-${index + 1}`,
+          src,
+          type: isAi ? "ai" : "real",
+          isAi
+        };
+      }),
       updatedAt: new Date().toISOString()
     };
 
-    const previousIndex = data.questions.findIndex((item) => item.date === date);
+    const previousIndex = data.questions.findIndex((item) => item.date === date || item.id === date);
     if (previousIndex >= 0) {
       data.questions[previousIndex] = nextQuestion;
     } else {
       data.questions.push(nextQuestion);
     }
 
-    data.questions.sort((a, b) => String(a.date).localeCompare(String(b.date)));
+    data.questions.sort((a, b) => String(a.date || a.id).localeCompare(String(b.date || b.id)));
 
     await putContent({
       owner,

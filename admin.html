@@ -40,7 +40,7 @@
               <strong>DAILY-PUBLISH</strong>
             </div>
             <h1>题目管理</h1>
-            <p class="subtitle">发布每日 AI 影像识别挑战。上传四张影像样本，标记其中两张 AI 生成图片，然后写入 GitHub 仓库。</p>
+            <p class="subtitle">发布每日 AI 影像识别挑战。上传四张影像样本，选择题型并标记 AI 图片，然后写入 GitHub 仓库。</p>
           </div>
 
           <aside class="lab-dashboard" aria-label="发布规则">
@@ -107,8 +107,34 @@
             </label>
             <label class="field">
               <span>题目标题</span>
-              <input id="titleInput" type="text" value="哪两张是 AI 生成的？" maxlength="60" required>
+              <input id="titleInput" type="text" value="AI 照片识别挑战" maxlength="60" required>
             </label>
+          </div>
+
+          <label class="field field-wide">
+            <span>题目说明</span>
+            <input id="descriptionInput" type="text" value="从四张图片中找出 AI 生成的照片。" maxlength="120">
+          </label>
+
+          <div class="mode-block">
+            <div>
+              <p class="panel-label">Question Mode</p>
+              <h3>出题模式</h3>
+            </div>
+            <div class="mode-selector" role="radiogroup" aria-label="出题模式">
+              <label>
+                <input type="radio" name="questionMode" value="single">
+                <span>单选</span>
+              </label>
+              <label>
+                <input type="radio" name="questionMode" value="multiple" checked>
+                <span>多选</span>
+              </label>
+              <label>
+                <input type="radio" name="questionMode" value="indefinite">
+                <span>不定项</span>
+              </label>
+            </div>
           </div>
         </section>
 
@@ -212,7 +238,7 @@
           <div class="publish-console">
             <div>
               <p class="panel-label">Publish Log</p>
-              <p class="result" id="adminStatus">等待发布。请先完成配置、图片与身份标记。</p>
+              <p class="result" id="adminStatus">等待发布。请先完成配置、图片、题型与身份标记。</p>
             </div>
             <div class="publish-log" id="publishLog">
               <div><span>00:00</span><strong>控制台待命</strong></div>

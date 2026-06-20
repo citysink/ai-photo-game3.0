@@ -43,7 +43,7 @@
               <span>AI 照片</span>
               <span>识别挑战</span>
             </h1>
-            <p class="subtitle">在四张影像样本中，找出两张由 AI 生成的照片。观察纹理、光线、边缘与那些过于完美的细节。</p>
+            <p class="subtitle" id="questionDescription">在四张影像样本中，找出由 AI 生成的照片。点击影像可放大查看，确认后使用样本下方按钮选择。</p>
 
             <div class="hero-metrics" aria-label="挑战状态">
               <div>
@@ -52,11 +52,11 @@
               </div>
               <div>
                 <span>SELECTION</span>
-                <strong><span id="selectedCountHero">0</span> / 2</strong>
+                <strong id="heroSelectionText">0 / 2</strong>
               </div>
               <div>
                 <span>MODE</span>
-                <strong>ANALYSIS</strong>
+                <strong id="modeLabel">多选模式</strong>
               </div>
             </div>
           </div>
@@ -64,16 +64,16 @@
           <aside class="lab-dashboard" aria-label="挑战规则">
             <div class="dashboard-head">
               <span>Analysis Mode</span>
-              <strong>Select 2</strong>
+              <strong id="modeBadge">Multiple</strong>
             </div>
             <div class="scope-dial" aria-hidden="true">
               <span></span>
               <span></span>
               <span></span>
             </div>
-            <ol class="rule-list">
+            <ol class="rule-list" id="ruleList">
               <li><span>01</span>四张样本会随机排列。</li>
-              <li><span>02</span>请选择两张 AI 生成影像。</li>
+              <li><span>02</span>请使用样本下方按钮进行选择。</li>
               <li><span>03</span>提交后会揭晓全部身份。</li>
             </ol>
           </aside>
@@ -95,8 +95,8 @@
       <section class="game-panel is-hidden" id="gamePanel" aria-live="polite">
         <div class="case-strip">
           <span>AI VISION TEST</span>
-          <span>SELECT 2</span>
-          <span>TRUTH ANALYSIS</span>
+          <span id="modeStripLabel">MULTIPLE</span>
+          <span id="selectionRuleLabel">SELECT 2</span>
         </div>
 
         <div class="question-head">
@@ -106,11 +106,11 @@
           </div>
           <div class="selection-meter" aria-live="polite">
             <span>已选择</span>
-            <strong><span id="selectedCount">0</span> / 2</strong>
+            <strong id="selectionMeterText">0 / 2</strong>
           </div>
         </div>
 
-        <p class="hint-line" id="selectionHint">请选择两张你认为由 AI 生成的照片。</p>
+        <p class="hint-line" id="selectionHint">请使用每张图下方的按钮进行选择。点击图片可放大查看。</p>
 
         <div class="gallery-stage">
           <div class="gallery-axis" aria-hidden="true">
@@ -137,10 +137,23 @@
             <span class="report-stamp" id="resultStamp">PENDING</span>
           </div>
           <p class="result-summary" id="resultSummary"></p>
+          <div class="report-metrics" id="reportMetrics"></div>
           <div class="identity-list" id="identityList"></div>
         </section>
       </section>
     </main>
+
+    <section class="lightbox is-hidden" id="lightbox" role="dialog" aria-modal="true" aria-labelledby="lightboxTitle">
+      <button class="lightbox-close" id="lightboxClose" type="button" aria-label="关闭大图预览">关闭</button>
+      <div class="lightbox-frame">
+        <div class="lightbox-meta">
+          <p class="panel-label">Preview Sample</p>
+          <h2 id="lightboxTitle">SAMPLE A</h2>
+        </div>
+        <img id="lightboxImage" alt="">
+        <p id="lightboxCaption">点击遮罩或按 Esc 关闭预览。</p>
+      </div>
+    </section>
 
     <script src="app.js" defer></script>
   </body>
