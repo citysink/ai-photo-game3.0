@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>题目管理</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="shell admin-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Admin</p>
+          <h1>上传今日题目</h1>
+        </div>
+        <a class="ghost-link" href="index.html">返回学生页</a>
+      </header>
+
+      <form class="admin-panel" id="adminForm">
+        <section class="form-section">
+          <h2>GitHub 提交设置</h2>
+          <div class="field-grid">
+            <label>
+              <span>GitHub Token</span>
+              <input id="tokenInput" type="password" autocomplete="off" placeholder="ghp_... 或 fine-grained token" required>
+            </label>
+            <label>
+              <span>Owner</span>
+              <input id="ownerInput" type="text" placeholder="你的 GitHub 用户名或组织名" required>
+            </label>
+            <label>
+              <span>Repo</span>
+              <input id="repoInput" type="text" placeholder="仓库名" required>
+            </label>
+            <label>
+              <span>Branch</span>
+              <input id="branchInput" type="text" value="main" required>
+            </label>
+          </div>
+        </section>
+
+        <section class="form-section">
+          <h2>题目内容</h2>
+          <div class="field-grid two">
+            <label>
+              <span>题目日期</span>
+              <input id="dateInput" type="date" required>
+            </label>
+            <label>
+              <span>题目标题</span>
+              <input id="titleInput" type="text" value="哪两张是 AI 生成的？" maxlength="60" required>
+            </label>
+          </div>
+        </section>
+
+        <section class="form-section">
+          <div class="section-head">
+            <h2>四张图片</h2>
+            <p>请选择 4 张图片，并勾选其中 2 张 AI 图片。</p>
+          </div>
+
+          <div class="upload-grid">
+            <article class="upload-card">
+              <label>
+                <span>图片 1</span>
+                <input class="file-input" type="file" accept="image/*" required>
+              </label>
+              <label class="check-row">
+                <input class="ai-check" type="checkbox">
+                <span>这是 AI 图片</span>
+              </label>
+              <img class="preview" alt="">
+            </article>
+
+            <article class="upload-card">
+              <label>
+                <span>图片 2</span>
+                <input class="file-input" type="file" accept="image/*" required>
+              </label>
+              <label class="check-row">
+                <input class="ai-check" type="checkbox">
+                <span>这是 AI 图片</span>
+              </label>
+              <img class="preview" alt="">
+            </article>
+
+            <article class="upload-card">
+              <label>
+                <span>图片 3</span>
+                <input class="file-input" type="file" accept="image/*" required>
+              </label>
+              <label class="check-row">
+                <input class="ai-check" type="checkbox">
+                <span>这是 AI 图片</span>
+              </label>
+              <img class="preview" alt="">
+            </article>
+
+            <article class="upload-card">
+              <label>
+                <span>图片 4</span>
+                <input class="file-input" type="file" accept="image/*" required>
+              </label>
+              <label class="check-row">
+                <input class="ai-check" type="checkbox">
+                <span>这是 AI 图片</span>
+              </label>
+              <img class="preview" alt="">
+            </article>
+          </div>
+        </section>
+
+        <div class="submit-row">
+          <button class="primary" id="publishButton" type="submit">提交到 GitHub</button>
+          <p class="result" id="adminStatus" aria-live="polite"></p>
+        </div>
+      </form>
+    </main>
+
+    <script src="admin.js" defer></script>
+  </body>
+</html>

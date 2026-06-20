@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AI 图片辨别挑战</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow" id="todayLabel">今日题目</p>
+          <h1>找出两张 AI 图片</h1>
+        </div>
+        <a class="ghost-link" href="admin.html">管理</a>
+      </header>
+
+      <section class="status-panel" id="statusPanel">
+        <div class="loader"></div>
+        <p>正在读取今天的题目...</p>
+      </section>
+
+      <section class="game-panel is-hidden" id="gamePanel" aria-live="polite">
+        <div class="question-head">
+          <div>
+            <p class="eyebrow">Today's Challenge</p>
+            <h2 id="questionTitle">今日挑战</h2>
+          </div>
+          <p class="counter"><span id="selectedCount">0</span>/2</p>
+        </div>
+
+        <div class="photo-grid" id="photoGrid"></div>
+
+        <div class="actions">
+          <button class="primary" id="checkButton" type="button" disabled>提交答案</button>
+          <button class="secondary" id="resetButton" type="button">重选</button>
+        </div>
+
+        <p class="result" id="resultText" aria-live="polite"></p>
+      </section>
+    </main>
+
+    <script src="app.js" defer></script>
+  </body>
+</html>

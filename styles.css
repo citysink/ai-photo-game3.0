@@ -1,0 +1,390 @@
+:root {
+  color-scheme: light;
+  --ink: #202124;
+  --muted: #6b7280;
+  --line: #d8dee8;
+  --panel: #ffffff;
+  --page: #f4f7fb;
+  --accent: #0f766e;
+  --accent-dark: #115e59;
+  --danger: #b42318;
+  --ok: #137333;
+  --shadow: 0 18px 48px rgba(27, 45, 72, 0.14);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: Arial, "Microsoft YaHei", sans-serif;
+  color: var(--ink);
+  background:
+    linear-gradient(135deg, rgba(15, 118, 110, 0.14), transparent 34%),
+    linear-gradient(315deg, rgba(234, 179, 8, 0.13), transparent 30%),
+    var(--page);
+}
+
+button,
+input {
+  font: inherit;
+}
+
+.shell {
+  width: min(1120px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 28px 0 48px;
+}
+
+.topbar,
+.question-head,
+.section-head,
+.submit-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.topbar {
+  margin-bottom: 24px;
+}
+
+.eyebrow {
+  margin: 0 0 6px;
+  color: var(--accent-dark);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+h1,
+h2,
+p {
+  margin-top: 0;
+}
+
+h1 {
+  margin-bottom: 0;
+  font-size: clamp(30px, 6vw, 54px);
+  line-height: 1.05;
+}
+
+h2 {
+  margin-bottom: 14px;
+  font-size: 22px;
+}
+
+.ghost-link,
+button {
+  min-height: 44px;
+  border-radius: 8px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.ghost-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 16px;
+  color: var(--accent-dark);
+  border: 1px solid rgba(17, 94, 89, 0.28);
+  background: rgba(255, 255, 255, 0.68);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.status-panel,
+.game-panel,
+.admin-panel {
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(216, 222, 232, 0.92);
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+}
+
+.status-panel {
+  display: grid;
+  min-height: 260px;
+  place-items: center;
+  padding: 32px;
+  text-align: center;
+}
+
+.loader {
+  width: 34px;
+  height: 34px;
+  border: 4px solid #dce5ee;
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.game-panel,
+.admin-panel {
+  padding: 22px;
+}
+
+.counter {
+  display: inline-flex;
+  min-width: 62px;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  border-radius: 8px;
+  background: #e8f5f2;
+  color: var(--accent-dark);
+  font-size: 20px;
+  font-weight: 800;
+}
+
+.photo-grid,
+.upload-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.photo-card {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  min-height: 240px;
+  padding: 0;
+  border: 3px solid transparent;
+  border-radius: 8px;
+  background: #e6edf5;
+}
+
+.photo-card img,
+.preview {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.photo-card img {
+  display: block;
+  aspect-ratio: 1 / 1;
+}
+
+.photo-card.is-selected {
+  border-color: var(--accent);
+}
+
+.photo-card.is-correct {
+  border-color: var(--ok);
+}
+
+.photo-card.is-wrong {
+  border-color: var(--danger);
+}
+
+.badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  display: none;
+  min-width: 34px;
+  min-height: 34px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--accent);
+  color: white;
+  font-weight: 800;
+}
+
+.photo-card.is-selected .badge {
+  display: inline-flex;
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+button {
+  border: 0;
+  padding: 0 18px;
+  font-weight: 800;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.48;
+}
+
+.primary {
+  color: white;
+  background: var(--accent);
+}
+
+.primary:not(:disabled):hover {
+  background: var(--accent-dark);
+}
+
+.secondary {
+  color: var(--ink);
+  background: #e8edf3;
+}
+
+.result {
+  margin: 14px 0 0;
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.result.ok {
+  color: var(--ok);
+}
+
+.result.bad {
+  color: var(--danger);
+}
+
+.form-section {
+  padding: 18px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.form-section:first-child {
+  padding-top: 0;
+}
+
+.form-section h2 {
+  font-size: 18px;
+}
+
+.field-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.field-grid.two {
+  grid-template-columns: 220px 1fr;
+}
+
+label span {
+  display: block;
+  margin-bottom: 8px;
+  color: #384252;
+  font-weight: 800;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="date"],
+input[type="file"] {
+  width: 100%;
+  min-height: 44px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: white;
+  color: var(--ink);
+}
+
+input[type="text"],
+input[type="password"],
+input[type="date"] {
+  padding: 0 12px;
+}
+
+input[type="file"] {
+  padding: 9px;
+}
+
+.section-head p {
+  margin: 0 0 14px;
+  color: var(--muted);
+}
+
+.upload-card {
+  min-height: 260px;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fbfcfe;
+}
+
+.check-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 12px 0;
+}
+
+.check-row span {
+  margin: 0;
+}
+
+.preview {
+  display: none;
+  aspect-ratio: 1 / 1;
+  border-radius: 8px;
+  background: #e6edf5;
+}
+
+.preview.has-image {
+  display: block;
+}
+
+.submit-row {
+  padding-top: 18px;
+}
+
+.is-hidden {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .photo-grid,
+  .upload-grid,
+  .field-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .shell {
+    width: min(100% - 20px, 1120px);
+    padding-top: 18px;
+  }
+
+  .topbar,
+  .question-head,
+  .section-head,
+  .submit-row {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .photo-grid,
+  .upload-grid,
+  .field-grid,
+  .field-grid.two {
+    grid-template-columns: 1fr;
+  }
+
+  .actions {
+    flex-direction: column;
+  }
+
+  button,
+  .ghost-link {
+    width: 100%;
+  }
+}
