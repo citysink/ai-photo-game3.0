@@ -1,27 +1,38 @@
 {
   "questions": [
     {
+      "id": "2026-06-21",
       "date": "2026-06-21",
-      "title": "哪两张是 AI 生成的？",
+      "title": "AI 照片识别挑战",
+      "description": "从四张图片中找出 AI 生成的照片。",
+      "mode": "indefinite",
       "images": [
         {
-          "src": "media/2026-06-21/1781985606754-01.jpg",
-          "isAi": false
-        },
-        {
-          "src": "media/2026-06-21/1781985606754-02.png",
+          "id": "img-1",
+          "src": "media/2026-06-21/1781993560056-01.png",
+          "type": "ai",
           "isAi": true
         },
         {
-          "src": "media/2026-06-21/1781985606754-03.png",
+          "id": "img-2",
+          "src": "media/2026-06-21/1781993560056-02.png",
+          "type": "ai",
           "isAi": true
         },
         {
-          "src": "media/2026-06-21/1781985606754-04.jpg",
+          "id": "img-3",
+          "src": "media/2026-06-21/1781993560056-03.png",
+          "type": "ai",
+          "isAi": true
+        },
+        {
+          "id": "img-4",
+          "src": "media/2026-06-21/1781993560056-04.png",
+          "type": "real",
           "isAi": false
         }
       ],
-      "updatedAt": "2026-06-20T20:00:21.025Z"
+      "updatedAt": "2026-06-20T22:12:56.787Z"
     }
   ]
 }
