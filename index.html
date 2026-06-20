@@ -3,41 +3,142 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>AI 图片辨别挑战</title>
+    <title>AI 照片识别挑战</title>
     <link rel="stylesheet" href="styles.css">
   </head>
-  <body>
-    <main class="shell">
-      <header class="topbar">
-        <div>
-          <p class="eyebrow" id="todayLabel">今日题目</p>
-          <h1>找出两张 AI 图片</h1>
-        </div>
-        <a class="ghost-link" href="admin.html">管理</a>
+  <body class="student-page">
+    <div class="ambient-stage" aria-hidden="true">
+      <span class="spectral-field field-a"></span>
+      <span class="spectral-field field-b"></span>
+      <span class="spectral-field field-c"></span>
+      <span class="scan-field"></span>
+    </div>
+
+    <main class="shell lab-shell">
+      <header class="hero lab-hero">
+        <nav class="topbar lab-nav" aria-label="页面导航">
+          <a class="brand-mark" href="index.html" aria-label="AI Photo Lab 首页">
+            <span class="brand-orbit">AI</span>
+            <span class="brand-copy">
+              <strong>Photo Lab</strong>
+              <small>AI Vision Test</small>
+            </span>
+          </a>
+
+          <div class="nav-console">
+            <span class="signal-dot"></span>
+            <span>Daily Case</span>
+            <a class="ghost-link" href="admin.html">题目管理</a>
+          </div>
+        </nav>
+
+        <section class="hero-layout" aria-label="AI 照片识别挑战说明">
+          <div class="hero-copy">
+            <p class="eyebrow">PHOTO LAB / DAILY CASE</p>
+            <div class="case-line">
+              <span>CASE ID</span>
+              <strong id="caseIdLabel">WAITING</strong>
+            </div>
+            <h1>
+              <span>AI 照片</span>
+              <span>识别挑战</span>
+            </h1>
+            <p class="subtitle">在四张影像样本中，找出两张由 AI 生成的照片。观察纹理、光线、边缘与那些过于完美的细节。</p>
+
+            <div class="hero-metrics" aria-label="挑战状态">
+              <div>
+                <span>DATE</span>
+                <strong id="todayLabel">今日题目</strong>
+              </div>
+              <div>
+                <span>SELECTION</span>
+                <strong><span id="selectedCountHero">0</span> / 2</strong>
+              </div>
+              <div>
+                <span>MODE</span>
+                <strong>ANALYSIS</strong>
+              </div>
+            </div>
+          </div>
+
+          <aside class="lab-dashboard" aria-label="挑战规则">
+            <div class="dashboard-head">
+              <span>Analysis Mode</span>
+              <strong>Select 2</strong>
+            </div>
+            <div class="scope-dial" aria-hidden="true">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+            <ol class="rule-list">
+              <li><span>01</span>四张样本会随机排列。</li>
+              <li><span>02</span>请选择两张 AI 生成影像。</li>
+              <li><span>03</span>提交后会揭晓全部身份。</li>
+            </ol>
+          </aside>
+        </section>
       </header>
 
-      <section class="status-panel" id="statusPanel">
-        <div class="loader"></div>
-        <p>正在读取今天的题目...</p>
+      <section class="status-panel" id="statusPanel" aria-live="polite">
+        <div class="loading-mark" aria-hidden="true">
+          <span></span>
+          <span></span>
+        </div>
+        <div>
+          <p class="panel-label">Loading Collection</p>
+          <h2>正在读取今天的题目</h2>
+          <p class="panel-copy">如果今天还没有发布题目，这里会给出清晰提示。</p>
+        </div>
       </section>
 
       <section class="game-panel is-hidden" id="gamePanel" aria-live="polite">
+        <div class="case-strip">
+          <span>AI VISION TEST</span>
+          <span>SELECT 2</span>
+          <span>TRUTH ANALYSIS</span>
+        </div>
+
         <div class="question-head">
           <div>
-            <p class="eyebrow">Today's Challenge</p>
+            <p class="panel-label">Image Samples</p>
             <h2 id="questionTitle">今日挑战</h2>
           </div>
-          <p class="counter"><span id="selectedCount">0</span>/2</p>
+          <div class="selection-meter" aria-live="polite">
+            <span>已选择</span>
+            <strong><span id="selectedCount">0</span> / 2</strong>
+          </div>
         </div>
 
-        <div class="photo-grid" id="photoGrid"></div>
+        <p class="hint-line" id="selectionHint">请选择两张你认为由 AI 生成的照片。</p>
 
-        <div class="actions">
-          <button class="primary" id="checkButton" type="button" disabled>提交答案</button>
-          <button class="secondary" id="resetButton" type="button">重选</button>
+        <div class="gallery-stage">
+          <div class="gallery-axis" aria-hidden="true">
+            <span>LATENT SPACE</span>
+            <span>VISUAL TRUTH</span>
+          </div>
+          <div class="photo-grid" id="photoGrid"></div>
         </div>
 
-        <p class="result" id="resultText" aria-live="polite"></p>
+        <div class="actions lab-actions">
+          <button class="primary" id="checkButton" type="button" disabled>
+            <span>提交答案</span>
+            <small>Run Analysis</small>
+          </button>
+          <button class="secondary" id="resetButton" type="button">重新开始</button>
+        </div>
+
+        <section class="result-panel is-hidden" id="resultPanel" aria-live="polite">
+          <div class="result-head">
+            <div>
+              <p class="panel-label">Image Analysis Report</p>
+              <h2 id="resultTitle">识别结果</h2>
+            </div>
+            <span class="report-stamp" id="resultStamp">PENDING</span>
+          </div>
+          <p class="result-summary" id="resultSummary"></p>
+          <div class="identity-list" id="identityList"></div>
+        </section>
       </section>
     </main>
 

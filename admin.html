@@ -6,114 +6,220 @@
     <title>题目管理</title>
     <link rel="stylesheet" href="styles.css">
   </head>
-  <body>
+  <body class="admin-page">
+    <div class="ambient-stage" aria-hidden="true">
+      <span class="spectral-field field-a"></span>
+      <span class="spectral-field field-b"></span>
+      <span class="spectral-field field-c"></span>
+      <span class="scan-field"></span>
+    </div>
+
     <main class="shell admin-shell">
-      <header class="topbar">
-        <div>
-          <p class="eyebrow">Admin</p>
-          <h1>上传今日题目</h1>
-        </div>
-        <a class="ghost-link" href="index.html">返回学生页</a>
+      <header class="hero compact">
+        <nav class="topbar lab-nav" aria-label="页面导航">
+          <a class="brand-mark" href="index.html" aria-label="AI Photo Lab 首页">
+            <span class="brand-orbit">AI</span>
+            <span class="brand-copy">
+              <strong>Photo Lab</strong>
+              <small>Publish Console</small>
+            </span>
+          </a>
+
+          <div class="nav-console">
+            <span class="signal-dot"></span>
+            <span>Image Release</span>
+            <a class="ghost-link" href="index.html">返回学生页</a>
+          </div>
+        </nav>
+
+        <section class="hero-layout" aria-label="题目发布控制台说明">
+          <div class="hero-copy">
+            <p class="eyebrow">PHOTO LAB / ADMIN CONSOLE</p>
+            <div class="case-line">
+              <span>CONTROL ID</span>
+              <strong>DAILY-PUBLISH</strong>
+            </div>
+            <h1>题目管理</h1>
+            <p class="subtitle">发布每日 AI 影像识别挑战。上传四张影像样本，标记其中两张 AI 生成图片，然后写入 GitHub 仓库。</p>
+          </div>
+
+          <aside class="lab-dashboard" aria-label="发布规则">
+            <div class="dashboard-head">
+              <span>Release Mode</span>
+              <strong>4 Images</strong>
+            </div>
+            <div class="scope-dial" aria-hidden="true">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+            <ol class="rule-list">
+              <li><span>01</span>Token 只在本次页面中使用。</li>
+              <li><span>02</span>图片会上传到 media 日期目录。</li>
+              <li><span>03</span>题目数据会更新到 questions.json。</li>
+            </ol>
+          </aside>
+        </section>
       </header>
 
-      <form class="admin-panel" id="adminForm">
-        <section class="form-section">
-          <h2>GitHub 提交设置</h2>
+      <form class="admin-form" id="adminForm" novalidate>
+        <section class="control-panel">
+          <div class="panel-heading">
+            <div>
+              <p class="panel-label">Repository Access</p>
+              <h2>GitHub 提交设置</h2>
+            </div>
+            <span class="status-chip">Contents: Read & Write</span>
+          </div>
+
           <div class="field-grid">
-            <label>
+            <label class="field">
               <span>GitHub Token</span>
               <input id="tokenInput" type="password" autocomplete="off" placeholder="ghp_... 或 fine-grained token" required>
             </label>
-            <label>
+            <label class="field">
               <span>Owner</span>
-              <input id="ownerInput" type="text" placeholder="你的 GitHub 用户名或组织名" required>
+              <input id="ownerInput" type="text" placeholder="GitHub 用户名或组织名" required>
             </label>
-            <label>
+            <label class="field">
               <span>Repo</span>
               <input id="repoInput" type="text" placeholder="仓库名" required>
             </label>
-            <label>
+            <label class="field">
               <span>Branch</span>
               <input id="branchInput" type="text" value="main" required>
             </label>
           </div>
         </section>
 
-        <section class="form-section">
-          <h2>题目内容</h2>
+        <section class="control-panel">
+          <div class="panel-heading">
+            <div>
+              <p class="panel-label">Challenge Detail</p>
+              <h2>题目内容</h2>
+            </div>
+          </div>
+
           <div class="field-grid two">
-            <label>
+            <label class="field">
               <span>题目日期</span>
-              <input id="dateInput" type="date" required>
+              <input id="dateInput" type="text" inputmode="numeric" placeholder="YYYY-MM-DD" required>
             </label>
-            <label>
+            <label class="field">
               <span>题目标题</span>
               <input id="titleInput" type="text" value="哪两张是 AI 生成的？" maxlength="60" required>
             </label>
           </div>
         </section>
 
-        <section class="form-section">
-          <div class="section-head">
-            <h2>四张图片</h2>
-            <p>请选择 4 张图片，并勾选其中 2 张 AI 图片。</p>
+        <section class="control-panel">
+          <div class="panel-heading">
+            <div>
+              <p class="panel-label">Image Samples</p>
+              <h2>四张图片</h2>
+            </div>
+            <span class="status-chip" id="aiCountText">AI 已标记 0 / 2</span>
           </div>
 
           <div class="upload-grid">
-            <article class="upload-card">
-              <label>
-                <span>图片 1</span>
-                <input class="file-input" type="file" accept="image/*" required>
+            <article class="upload-card" data-index="0">
+              <div class="upload-card-head">
+                <span>SAMPLE A</span>
+                <strong class="file-state">未选择</strong>
+              </div>
+              <label class="drop-zone">
+                <input class="file-input" type="file" accept="image/*">
+                <span class="drop-copy">点击选择或拖入图片</span>
+                <img class="preview" alt="样本 A 预览">
               </label>
-              <label class="check-row">
+              <div class="file-row">
+                <span class="file-name">等待上传</span>
+                <button class="text-button clear-file" type="button">移除</button>
+              </div>
+              <label class="identity-switch">
                 <input class="ai-check" type="checkbox">
-                <span>这是 AI 图片</span>
+                <span>真实照片</span>
+                <strong>AI 生成</strong>
               </label>
-              <img class="preview" alt="">
             </article>
 
-            <article class="upload-card">
-              <label>
-                <span>图片 2</span>
-                <input class="file-input" type="file" accept="image/*" required>
+            <article class="upload-card" data-index="1">
+              <div class="upload-card-head">
+                <span>SAMPLE B</span>
+                <strong class="file-state">未选择</strong>
+              </div>
+              <label class="drop-zone">
+                <input class="file-input" type="file" accept="image/*">
+                <span class="drop-copy">点击选择或拖入图片</span>
+                <img class="preview" alt="样本 B 预览">
               </label>
-              <label class="check-row">
+              <div class="file-row">
+                <span class="file-name">等待上传</span>
+                <button class="text-button clear-file" type="button">移除</button>
+              </div>
+              <label class="identity-switch">
                 <input class="ai-check" type="checkbox">
-                <span>这是 AI 图片</span>
+                <span>真实照片</span>
+                <strong>AI 生成</strong>
               </label>
-              <img class="preview" alt="">
             </article>
 
-            <article class="upload-card">
-              <label>
-                <span>图片 3</span>
-                <input class="file-input" type="file" accept="image/*" required>
+            <article class="upload-card" data-index="2">
+              <div class="upload-card-head">
+                <span>SAMPLE C</span>
+                <strong class="file-state">未选择</strong>
+              </div>
+              <label class="drop-zone">
+                <input class="file-input" type="file" accept="image/*">
+                <span class="drop-copy">点击选择或拖入图片</span>
+                <img class="preview" alt="样本 C 预览">
               </label>
-              <label class="check-row">
+              <div class="file-row">
+                <span class="file-name">等待上传</span>
+                <button class="text-button clear-file" type="button">移除</button>
+              </div>
+              <label class="identity-switch">
                 <input class="ai-check" type="checkbox">
-                <span>这是 AI 图片</span>
+                <span>真实照片</span>
+                <strong>AI 生成</strong>
               </label>
-              <img class="preview" alt="">
             </article>
 
-            <article class="upload-card">
-              <label>
-                <span>图片 4</span>
-                <input class="file-input" type="file" accept="image/*" required>
+            <article class="upload-card" data-index="3">
+              <div class="upload-card-head">
+                <span>SAMPLE D</span>
+                <strong class="file-state">未选择</strong>
+              </div>
+              <label class="drop-zone">
+                <input class="file-input" type="file" accept="image/*">
+                <span class="drop-copy">点击选择或拖入图片</span>
+                <img class="preview" alt="样本 D 预览">
               </label>
-              <label class="check-row">
+              <div class="file-row">
+                <span class="file-name">等待上传</span>
+                <button class="text-button clear-file" type="button">移除</button>
+              </div>
+              <label class="identity-switch">
                 <input class="ai-check" type="checkbox">
-                <span>这是 AI 图片</span>
+                <span>真实照片</span>
+                <strong>AI 生成</strong>
               </label>
-              <img class="preview" alt="">
             </article>
           </div>
         </section>
 
-        <div class="submit-row">
-          <button class="primary" id="publishButton" type="submit">提交到 GitHub</button>
-          <p class="result" id="adminStatus" aria-live="polite"></p>
-        </div>
+        <section class="publish-panel" aria-live="polite">
+          <div class="publish-console">
+            <div>
+              <p class="panel-label">Publish Log</p>
+              <p class="result" id="adminStatus">等待发布。请先完成配置、图片与身份标记。</p>
+            </div>
+            <div class="publish-log" id="publishLog">
+              <div><span>00:00</span><strong>控制台待命</strong></div>
+            </div>
+          </div>
+          <button class="primary publish-button" id="publishButton" type="submit">发布到 GitHub</button>
+        </section>
       </form>
     </main>
 
