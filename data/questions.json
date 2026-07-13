@@ -281,30 +281,30 @@
       "images": [
         {
           "id": "img-1",
-          "src": "media/2026-07-13/1783874540480-01.jpg",
+          "src": "media/2026-07-13/1783915878321-01.jpg",
           "type": "real",
           "isAi": false
         },
         {
           "id": "img-2",
-          "src": "media/2026-07-13/1783874540480-02.jpg",
-          "type": "real",
-          "isAi": false
+          "src": "media/2026-07-13/1783915878321-02.png",
+          "type": "ai",
+          "isAi": true
         },
         {
           "id": "img-3",
-          "src": "media/2026-07-13/1783874540480-03.png",
+          "src": "media/2026-07-13/1783915878321-03.png",
           "type": "ai",
           "isAi": true
         },
         {
           "id": "img-4",
-          "src": "media/2026-07-13/1783874540480-04.jpg",
-          "type": "ai",
-          "isAi": true
+          "src": "media/2026-07-13/1783915878321-04.jpg",
+          "type": "real",
+          "isAi": false
         }
       ],
-      "updatedAt": "2026-07-12T16:42:39.707Z"
+      "updatedAt": "2026-07-13T04:11:49.833Z"
     }
   ]
 }
