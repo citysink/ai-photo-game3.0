@@ -373,6 +373,40 @@
         }
       ],
       "updatedAt": "2026-07-17T07:08:12.244Z"
+    },
+    {
+      "id": "2026-08-20",
+      "date": "2026-08-20",
+      "title": "123456",
+      "description": "从四张图片中找出 AI 生成的照片。",
+      "mode": "indefinite",
+      "images": [
+        {
+          "id": "img-1",
+          "src": "media/2026-08-20/1787221989469-01.png",
+          "type": "ai",
+          "isAi": true
+        },
+        {
+          "id": "img-2",
+          "src": "media/2026-08-20/1787221989469-02.png",
+          "type": "ai",
+          "isAi": true
+        },
+        {
+          "id": "img-3",
+          "src": "media/2026-08-20/1787221989469-03.png",
+          "type": "real",
+          "isAi": false
+        },
+        {
+          "id": "img-4",
+          "src": "media/2026-08-20/1787221989469-04.png",
+          "type": "real",
+          "isAi": false
+        }
+      ],
+      "updatedAt": "2026-08-20T10:33:31.091Z"
     }
   ]
 }
