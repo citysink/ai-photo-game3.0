@@ -407,6 +407,40 @@
         }
       ],
       "updatedAt": "2026-08-20T10:33:31.091Z"
+    },
+    {
+      "id": "2026-08-25",
+      "date": "2026-08-25",
+      "title": "AI 照片识别挑战",
+      "description": "从四张图片中找出 AI 生成的照片。",
+      "mode": "indefinite",
+      "images": [
+        {
+          "id": "img-1",
+          "src": "media/2026-08-25/1787650344089-01.png",
+          "type": "ai",
+          "isAi": true
+        },
+        {
+          "id": "img-2",
+          "src": "media/2026-08-25/1787650344089-02.png",
+          "type": "ai",
+          "isAi": true
+        },
+        {
+          "id": "img-3",
+          "src": "media/2026-08-25/1787650344089-03.jpg",
+          "type": "real",
+          "isAi": false
+        },
+        {
+          "id": "img-4",
+          "src": "media/2026-08-25/1787650344089-04.jpg",
+          "type": "real",
+          "isAi": false
+        }
+      ],
+      "updatedAt": "2026-08-25T09:32:38.603Z"
     }
   ]
 }
